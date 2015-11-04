@@ -1,13 +1,13 @@
 'use strict';
 
-var rentControllers = angular.module('rentControllers', []);
+var publicationControllers = angular.module('rentControllers', []);
 
-rentControllers.controller("rentController", function($scope,$http,$routeParams) {
+publicationControllers.controller("rentCtrl", function($scope,$http,$routeParams) {
 
-	$http.get('http://localhost:8080/GradleSpringRestBasis-master/car/').
+	$http.get('http://localhost:8080/rent/car/').
 	  success(function(data, status, headers, config) {
-	  	$scope.carsList = data;
-	  	$scope.selected = data[0];
+	  $scope.carsList = data;
+	  $scope.selected = data[0];
 	  }).
 	  error(function(data, status, headers, config) {
 	  });
@@ -15,6 +15,6 @@ rentControllers.controller("rentController", function($scope,$http,$routeParams)
 	$scope.rent = function(selected) {
 		alert(selected.plateNumber);
 	};
-        
-});
+	        
 
+});

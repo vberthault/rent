@@ -1,10 +1,11 @@
 
+
 <div class="container">
 <form novalidate>
 
+<select ng-options="item.plateNumber for item in carsList" ng-model="selected"><br>
 
-Cars list: <select ng-options="item.plateNumber for item in carsList" ng-model="selected"><br>
-<input type="submit" ng-click="rent(selected)" value="Rent">
+<input type="button" ng-click="rent(selected)" value="Rent" />
 
 </form>
 </div>
