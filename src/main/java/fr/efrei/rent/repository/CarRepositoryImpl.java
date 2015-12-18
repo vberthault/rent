@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.efrei.rent.model.Car;
 
@@ -23,12 +24,18 @@ public class CarRepositoryImpl implements CarRepository {
 		Car car = new Car();
 		car.setPlateNumber("11AA22");
 		car.setRented(false);
+		car = saveCar(car);
 		cars.add(car);
 		car = new Car();
 		car.setPlateNumber("33BB44");
 		car.setRented(false);
 		cars.add(car);
 		return cars;
+	}
+	
+	@Transactional
+	public Car saveCar(Car car) {
+		return entityManager.merge(car);
 	}
 
 }

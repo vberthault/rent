@@ -8,7 +8,9 @@ repositories {
 }
 
 dependencies {
-compile 'org.springframework.hateoas:spring-hateoas:0.9.0.RELEASE' 
+compile 'org.springframework.hateoas:spring-hateoas:0.9.0.RELEASE'
+compile 'org.springframework:spring-orm:3.2.7.RELEASE'
+compile 'org.springframework.data:spring-data-jpa:1.4.1.RELEASE'
 compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.12'
 
 compile group: 'org.eclipse.persistence', name: 'javax.persistence', version: '2.0.0'
