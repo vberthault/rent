@@ -1,10 +1,12 @@
 package fr.efrei.rent.repository;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,12 +32,22 @@ public class CarRepositoryImpl implements CarRepository {
 		car.setPlateNumber("33BB44");
 		car.setRented(false);
 		cars.add(car);
+		
+		Collection<Car> cars2 = findAllCars();
+		
 		return cars;
 	}
 	
 	@Transactional
 	public Car saveCar(Car car) {
-		return entityManager.merge(car);
+		car = entityManager.merge(car);
+		return car;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public Collection<Car> findAllCars() {
+		Query query = entityManager.createQuery("SELECT c FROM Car c");
+		return (Collection<Car>) query.getResultList();
 	}
 
 }
