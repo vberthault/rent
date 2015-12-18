@@ -1,14 +1,10 @@
-package web;
+package fr.efrei.rent.web;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Car;
-
-import org.springframework.hateoas.ResourceSupport;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,27 +13,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import dto.CarDTO;
+import fr.efrei.rent.model.Car;
+import fr.efrei.rent.service.CarService;
+import fr.efrei.rent.web.dto.CarDTO;
 
 @Controller
-@Component
-public class MyRentController implements RentService{
-
+@RequestMapping(value="/")
+//@Component
+public class CarController {
+	
+	@Autowired
+	private CarService carService;
+	
 	List<Car> cars = new ArrayList<Car>();
 	
-	public MyRentController(){
-		Car car = new Car();
-		car.setPlateNumber("11AA22");
-		car.setRented(false);
-		
-		cars.add(car);
-
-		car = new Car();
-		car.setPlateNumber("33BB44");
-		car.setRented(false);
-		
-		cars.add(car);
-	}
+//	public CarController(){
+//		Car car = new Car();
+//		car.setPlateNumber("11AA22");
+//		car.setRented(false);
+//		
+//		cars.add(car);
+//
+//		car = new Car();
+//		car.setPlateNumber("33BB44");
+//		car.setRented(false);
+//		
+//		cars.add(car);
+//	}
 	
 	/**
 	*
@@ -46,8 +48,8 @@ public class MyRentController implements RentService{
 	@RequestMapping(value = "/car", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	@Override
 	public List<CarDTO> getCars() {
+		List<Car> cars = carService.getAllCars();
 		
 		List<CarDTO> dtos = new ArrayList<CarDTO>();
 		
@@ -68,13 +70,12 @@ public class MyRentController implements RentService{
 	@RequestMapping(value = "/car/{plateNumber}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	@Override
 	public CarDTO getCar(@PathVariable("plateNumber") String plateNumber) throws Exception {
 		int i=0;
 		while(i<cars.size() && cars.get(i).getPlateNumber().equals(plateNumber)==false){
 			i++;
 		}
-		if(i<cars.size()){		// trouvé 
+		if(i<cars.size()){
 			Car car = cars.get(i);
 			if(car.isRented() == false){
 				return new CarDTO(car);
@@ -94,13 +95,12 @@ public class MyRentController implements RentService{
 	*/
 	@RequestMapping(value = "/car/{plateNumber}", method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
-	@Override
 	public void rentCar(@PathVariable("plateNumber") String plateNumber, @RequestParam(value="rent",required=true)boolean rent) throws Exception {
 		int i=0;
 		while(i<cars.size() && cars.get(i).getPlateNumber().equals(plateNumber)==false){
 			i++;
 		}
-		if(i<cars.size()){		// trouvé 
+		if(i<cars.size()){		// trouvï¿½ 
 			Car car = cars.get(i);
 			if(rent == true){	// location
 				cars.get(i).setRented(true);
@@ -112,6 +112,5 @@ public class MyRentController implements RentService{
 		}
 		
 	}
-
 
 }

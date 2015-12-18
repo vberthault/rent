@@ -11,6 +11,10 @@ dependencies {
 compile 'org.springframework.hateoas:spring-hateoas:0.9.0.RELEASE' 
 compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.12'
 
+compile group: 'org.eclipse.persistence', name: 'javax.persistence', version: '2.0.0'
+compile group: 'hsqldb', name: 'hsqldb', version: '1.8.0.10'
+compile group: 'org.eclipse.persistence', name: 'eclipselink', version: '2.5.1'
+
 compile group: 'log4j', name: 'log4j', version: '1.2.17'
 
 providedCompile 'org.apache.tomcat:tomcat-catalina:7.0.47'

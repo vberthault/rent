@@ -1,6 +1,6 @@
-package dto;
+package fr.efrei.rent.web.dto;
 
-import model.Car;
+import fr.efrei.rent.model.Car;
 
 public class CarDTO {
 	
