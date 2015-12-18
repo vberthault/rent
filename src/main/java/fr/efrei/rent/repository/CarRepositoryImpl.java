@@ -21,6 +21,7 @@ public class CarRepositoryImpl implements CarRepository {
 	transient EntityManager entityManager;
 	
 	@Override
+	@Transactional
 	public List<Car> findCars() {
 		List<Car> cars = new ArrayList<Car>();
 		Car car = new Car();
@@ -40,7 +41,16 @@ public class CarRepositoryImpl implements CarRepository {
 	
 	@Transactional
 	public Car saveCar(Car car) {
-		car = entityManager.merge(car);
+		
+//		EntityManagerFactory emf = Persistence.createEntityManagerFactory("manager1");
+//		EntityManager entityManager = emf.createEntityManager();
+		
+//		tx.begin();
+		entityManager.persist(car);
+//		entityManager.refresh(car);
+		
+//		entityManager.persist(car);
+//		entityManager.getTransaction().commit();
 		return car;
 	}
 	
